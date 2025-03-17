@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Coming Wave</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        p {
+            color: #34495e;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Prologue: The Coming Wave</h1>
+        <p>
+            The prologue sets the stage by introducing the concept of a "coming wave" of technology that will bring a turning point in human history. 
+            It raises the central question of whether this wave can be contained and explores the potential dramatic and dire consequences if it cannot, 
+            alongside the lost opportunities if its fruits are not harnessed. The title is self-explanatory, referring to the imminent and impactful arrival of these transformative technologies.
+        </p>
+    </header>
+
+    <main>
+        <section class="section">
+            <h2>Part I: Homo Technologicus</h2>
+            <div>
+                <h3>Chapter 1: Containment Is Not Possible</h3>
+                <p>
+                    This chapter argues that, at first glance, containing the coming wave of technology appears impossible. 
+                    It poses the fundamental question of the book: why might this be true, and what are the implications? 
+                    The title is directly justified by this initial assertion and the chapter's exploration of the difficulty in controlling technological proliferation.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 2: Endless Proliferation</h3>
+                <p>
+                    This chapter examines the history of technology as a series of waves of innovation that have spread ceaselessly throughout time. 
+                    It discusses how general-purpose technologies transform society and how history shows a consistent pattern of technological proliferation with both intended and unintended consequences. 
+                    The title reflects this historical pattern of unending technological diffusion.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 3: The Containment Problem</h3>
+                <p>
+                    This chapter focuses on the core challenge of "keeping a grip" on the most valuable technologies as they become cheaper and spread faster than any in history. 
+                    It introduces the idea of containment as a set of technical, social, and legal mechanisms to manage technology. 
+                    The title highlights the inherent difficulty in containing the spread of powerful technologies.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Part II: The Next Wave</h2>
+            <div>
+                <h3>Chapter 4: The Technology of Intelligence</h3>
+                <p>
+                    This chapter delves into the first key technology of the coming wave: artificial intelligence. 
+                    It describes advancements in AI, such as large language models (LLMs), and their potential, emphasizing that these technologies are still developing rapidly. 
+                    The title directly refers to artificial intelligence as a central and defining technology of the next wave.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 5: The Technology of Life</h3>
+                <p>
+                    This chapter explores the second fundamental technology of the coming wave: synthetic biology. 
+                    It mentions how understanding and controlling information at the genetic level is opening new possibilities in biotechnology. 
+                    The title focuses on synthetic biology as the "technology of life" and its role in future transformation.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 6: The Wider Wave</h3>
+                <p>
+                    This chapter broadens the perspective to include other associated technologies growing around AI and synthetic biology, such as robotics and quantum computing, 
+                    and how their development will intersect in complex ways. The title suggests a broader view of the technological wave, encompassing multiple interconnected fields.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 7: Four Features of the Coming Wave</h3>
+                <p>
+                    This chapter identifies and describes four unique characteristics of the coming technological wave that make the challenge of containment significantly harder: 
+                    asymmetry, hyper-evolution, omni-use, and autonomy. The title highlights these four distinctive attributes that make this wave particularly difficult to control.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 8: Unstoppable Incentives</h3>
+                <p>
+                    This chapter analyzes the powerful driving forces behind the creation and spread of these technologies, including geopolitical competition, massive financial rewards, 
+                    an open research culture, and individual ego. It argues that as long as these incentives exist, the wave will inevitably progress. 
+                    The title emphasizes the "unstoppable" nature of these underlying motivations propelling the wave forward.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Part III: States of Failure</h2>
+            <div>
+                <h3>Chapter 9: The Grand Bargain</h3>
+                <p>
+                    This chapter examines the fundamental "grand bargain" of the nation-state: in exchange for a monopoly on the use of force, citizens expect the state to maintain order 
+                    and provide public services, including managing new technologies. The title refers to this implicit agreement between the state and its citizens, which will be strained by the coming wave.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 10: Fragility Amplifiers</h3>
+                <p>
+                    This chapter explores how the technologies of the coming wave will amplify existing vulnerabilities of the nation-state, such as new forms of violence, misinformation, 
+                    job displacement, and catastrophic accidents. The title highlights how the wave will act as an "amplifier" of existing weaknesses and instabilities within states.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 11: The Future of Nations</h3>
+                <p>
+                    This chapter contemplates the profound consequences of an uncontained wave for the future of nations, suggesting potential scenarios of eroding liberal democratic states 
+                    or the rise of supercharged authoritarian states. The title focuses on the transformation of the geopolitical landscape and the fate of nation-states in the era of the coming wave.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 12: The Dilemma</h3>
+                <p>
+                    This chapter articulates the central dilemma posed by the coming wave: we need the benefits of technology to address global challenges, but its uncontrolled proliferation carries existential risks. 
+                    It also explores dystopian and authoritarian risks arising from attempts to limit this proliferation. The title encapsulates this critical crossroads between the benefits and dangers of technology.
+                </p>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Part IV: Through the Wave</h2>
+            <div>
+                <h3>Chapter 13: Containment Must Be Possible</h3>
+                <p>
+                    Despite previous arguments about the difficulty of containment, this chapter asserts that, for the sake of humanity, containment must be possible. 
+                    It marks a shift towards exploring solutions and the necessity of action. The title expresses an imperative need to find ways to contain the wave.
+                </p>
+            </div>
+            <div>
+                <h3>Chapter 14: Ten Steps Toward Containment</h3>
+                <p>
+                    This chapter presents ten areas of focus as "concentric circles" of efforts to achieve containment, ranging from technical measures to international treaties and a global movement. 
+                    The title explicitly lists the ten proposed steps for moving towards containment.
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            <h2>Life After the Anthropocene</h2>
+            <p>
+                This concluding section offers a vision of a future where technology is responsibly managed for the long-term flourishing of humanity. 
+                The title suggests a transition to a new era where the relationship between humanity and technology has been redefined.
+            </p>
+        </footer>
+    </main>
+</body>
+</html>
