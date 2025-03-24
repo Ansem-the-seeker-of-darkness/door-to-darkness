@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Avanzada</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+            margin: 0; /* Elimina márgenes predeterminados */
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transform: translateY(50px); /* Desplaza la calculadora hacia abajo */
+            transition: background-color 0.5s ease; /* Transición suave al cambiar el color */
+        }
+        .display {
+            width: 100%;
+            min-height: 50px;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 5px;
+            font-size: 24px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: auto;
+            white-space: nowrap;
+        }
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columnas */
+            gap: 10px;
+        }
+        .button {
+            width: 100%;
+            height: 50px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #e0e0e0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .button:hover {
+            background-color: #d0d0d0;
+        }
+        .button.operator {
+            background-color: #ff9500;
+            color: white;
+        }
+        .button.operator:hover {
+            background-color: #e68a00;
+        }
+        .button.function {
+            background-color: #007bff;
+            color: white;
+        }
+        .button.function:hover {
+            background-color: #0069d9;
+        }
+        .shift-active {
+            background-color: #28a745 !important; /* Color verde para indicar Shift activo */
+        }
+        .power-button {
+            font-size: 16px;
+            line-height: 1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más clara */
+        }
+        .power-button sup {
+            font-size: 12px; /* Hace la x más pequeña */
+            vertical-align: super; /* Coloca la x arriba como exponente */
+            position: relative;
+            top: -4px; /* Ajusta manualmente la posición vertical */
+        }
+        .company-name {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div class="company-name">Francisco Corporation</div>
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+            <!-- Fila 1: Funciones avanzadas -->
+            <button class="button function" onclick="appendConstant('π', 'Math.PI')">π</button>
+            <button class="button function" onclick="appendConstant('e', 'Math.E')">e</button>
+            <button class="button function" onclick="appendConstant('φ', '(1 + Math.sqrt(5)) / 2')">φ</button>
+            <button class="button function" onclick="toggleShift()">SHIFT</button>
+            <button class="button operator" onclick="clearDisplay()">C</button>
+
+            <!-- Fila 2: Funciones trigonométricas -->
+            <button class="button function" id="sin-btn" onclick="handleTrigFunction('sin(', 'Math.sin(')">sin</button>
+            <button class="button function" id="cos-btn" onclick="handleTrigFunction('cos(', 'Math.cos(')">cos</button>
+            <button class="button function" id="tan-btn" onclick="handleTrigFunction('tan(', 'Math.tan(')">tan</button>
+            <button class="button operator" onclick="appendOperator('(')">(</button>
+            <button class="button operator" onclick="appendOperator(')')">)</button>
+
+            <!-- Fila 3: Números y operadores básicos -->
+            <button class="button" onclick="appendNumber('7')">7</button>
+            <button class="button" onclick="appendNumber('8')">8</button>
+            <button class="button" onclick="appendNumber('9')">9</button>
+            <button class="button operator" onclick="appendOperator('÷')">÷</button>
+            <button class="button operator" onclick="appendOperator('×')">×</button>
+
+            <!-- Fila 4: Números y operadores básicos -->
+            <button class="button" onclick="appendNumber('4')">4</button>
+            <button class="button" onclick="appendNumber('5')">5</button>
+            <button class="button" onclick="appendNumber('6')">6</button>
+            <button class="button operator" onclick="appendOperator('-')">-</button>
+            <button class="button operator" onclick="appendOperator('+')">+</button>
+
+            <!-- Fila 5: Números y funciones especiales -->
+            <button class="button" onclick="appendNumber('1')">1</button>
+            <button class="button" onclick="appendNumber('2')">2</button>
+            <button class="button" onclick="appendNumber('3')">3</button>
+            <button class="button wide operator" onclick="calculateResult()">=</button>
+
+            <!-- Fila 6: Botones restantes -->
+            <button class="button" onclick="appendNumber('0')">0</button>
+            <button class="button" onclick="appendNumber('.')">.</button>
+            <button class="button operator" onclick="convertToPercentage()">%</button>
+            <button class="button operator power-button" id="power-btn" onclick="handlePowerOrSqrt()">
+                x<sup>y</sup>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const display = document.getElementById('display');
+        let isNewInput = true; // Controla si se debe limpiar el display
+        let isShiftActive = false; // Controla el estado de Shift
+        let currentExpression = ''; // Almacena la expresión matemática actual
+
+        // Referencias a los botones de funciones trigonométricas
+        const sinBtn = document.getElementById('sin-btn');
+        const cosBtn = document.getElementById('cos-btn');
+        const tanBtn = document.getElementById('tan-btn');
+        const powerBtn = document.getElementById('power-btn');
+
+        // Cambiar el color de fondo de la calculadora y los botones cada 5 segundos
+        setInterval(() => {
+            const calculator = document.querySelector('.calculator');
+            const buttons = document.querySelectorAll('.button');
+            const randomColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            const buttonColor = `hsl(${Math.random() * 360}, 100%, 60%)`;
+
+            // Cambiar color de la calculadora
+            calculator.style.backgroundColor = randomColor;
+
+            // Cambiar color de los botones
+            buttons.forEach(button => {
+                button.style.backgroundColor = buttonColor;
+            });
+        }, 5000);
+
+        function appendNumber(number) {
+            if (isNewInput) {
+                display.textContent = number; // Sobrescribe el resultado anterior
+                currentExpression = number; // Actualiza la expresión matemática
+                isNewInput = false;
+            } else {
+                display.textContent += number; // Continúa agregando números
+                currentExpression += number; // Actualiza la expresión matemática
+            }
+        }
+
+        function appendOperator(operator) {
+            // Mapea los símbolos visuales a los operadores reales
+            const operatorMap = {
+                '÷': '/',
+                '×': '*',
+                '-': '-',
+                '+': '+',
+                '^': '**'
+            };
+
+            const realOperator = operatorMap[operator] || operator;
+
+            if (!isNewInput) { // Solo agrega operadores si no es un nuevo input
+                display.textContent += operator; // Muestra el símbolo visual en el display
+                currentExpression += realOperator; // Usa el operador real en la expresión matemática
+            }
+        }
+
+        function appendConstant(symbol, value) {
+            if (isNewInput) {
+                display.textContent = symbol; // Muestra el símbolo en el display
+                currentExpression = value; // Actualiza la expresión matemática
+                isNewInput = false;
+            } else {
+                display.textContent += symbol; // Agrega el símbolo al contenido existente
+                currentExpression += value; // Actualiza la expresión matemática
+            }
+        }
+
+        function handleTrigFunction(displayText, mathFunction) {
+            if (isNewInput) {
+                display.textContent = displayText; // Muestra el texto de la función
+                currentExpression = mathFunction; // Actualiza la expresión matemática
+                isNewInput = false;
+            } else {
+                display.textContent += displayText; // Agrega el texto de la función
+                currentExpression += mathFunction; // Actualiza la expresión matemática
+            }
+        }
+
+        function toggleShift() {
+            isShiftActive = !isShiftActive; // Alterna el estado de Shift
+            const shiftButton = document.querySelector('.buttons .function:nth-child(4)');
+            shiftButton.classList.toggle('shift-active', isShiftActive);
+
+            // Cambiar las funciones trigonométricas según el estado de Shift
+            sinBtn.textContent = isShiftActive ? 'asin' : 'sin';
+            cosBtn.textContent = isShiftActive ? 'acos' : 'cos';
+            tanBtn.textContent = isShiftActive ? 'atan' : 'tan';
+
+            // Cambiar el botón de potencia/raíz cuadrada
+            if (isShiftActive) {
+                powerBtn.innerHTML = '√';
+                powerBtn.onclick = () => sqrt();
+            } else {
+                powerBtn.innerHTML = 'x<sup>y</sup>';
+                powerBtn.onclick = () => appendOperator('^');
+            }
+        }
+
+        function clearDisplay() {
+            display.textContent = '0'; // Limpia el display
+            currentExpression = ''; // Limpia la expresión matemática
+            isNewInput = true; // Reinicia el estado de entrada
+        }
+
+        function backspace() {
+            const currentValue = display.textContent;
+            if (currentValue.length > 1) {
+                display.textContent = currentValue.slice(0, -1); // Elimina el último carácter
+                currentExpression = currentExpression.slice(0, -1); // Actualiza la expresión matemática
+            } else {
+                display.textContent = '0'; // Si solo queda un carácter, muestra '0'
+                currentExpression = '';
+                isNewInput = true;
+            }
+        }
+
+        function calculateResult() {
+            try {
+                // Evalúa la expresión matemática almacenada
+                const result = eval(currentExpression);
+                display.textContent = result; // Muestra el resultado en el display
+                currentExpression = result.toString(); // Actualiza la expresión matemática
+                isNewInput = true; // Marca que el siguiente número debe sobrescribir el resultado
+            } catch (error) {
+                display.textContent = 'Error'; // Muestra 'Error' si hay un problema
+                currentExpression = ''; // Limpia la expresión matemática
+                isNewInput = true; // Reinicia el estado de entrada
+            }
+        }
+
+        function sqrt() {
+            const currentValue = display.textContent.trim(); // Captura el valor actual del display
+            if (currentValue && !isNaN(currentValue)) {
+                display.textContent = `√(${currentValue})`;
+                currentExpression = `Math.sqrt(${currentValue})`;
+                isNewInput = true; // Marca que el siguiente número debe sobrescribir el resultado
+            } else {
+                display.textContent = 'Error';
+            }
+        }
+
+        function convertToPercentage() {
+            const currentValue = display.textContent.trim(); // Captura el valor actual del display
+            if (currentValue && !isNaN(currentValue)) {
+                const percentageValue = parseFloat(currentValue) / 100; // Convierte a porcentaje
+                display.textContent = percentageValue.toString(); // Muestra el resultado
+                currentExpression = percentageValue.toString(); // Actualiza la expresión matemática
+                isNewInput = true; // Marca que el siguiente número debe sobrescribir el resultado
+            } else {
+                display.textContent = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
